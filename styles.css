@@ -902,3 +902,49 @@ body.locked {
     width: 100vw;
     filter: blur(80px);
 }
+
+/* RNK Studio Branding Watermark */
+.rnk-watermark {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10001;
+    text-decoration: none;
+    color: var(--light-text);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.rnk-watermark:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    color: var(--primary-color);
+}
+
+.watermark-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+}
+
+.watermark-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .rnk-watermark {
+        bottom: 15px;
+        left: 15px;
+    }
+    .watermark-brand {
+        font-size: 0.75rem;
+    }
+}
