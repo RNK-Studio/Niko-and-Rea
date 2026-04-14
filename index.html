@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap"
         rel="stylesheet">
 </head>
 
@@ -49,6 +49,7 @@
     <!-- Futuristic Envelope Overlay -->
     <div class="envelope-overlay" id="envelope-overlay">
         <canvas id="particle-canvas" class="particle-canvas"></canvas>
+        <div class="envelope-greeting">For our dearest friends & family...</div>
         <div class="envelope" id="envelope">
             <div class="envelope-paper">
                 <div class="envelope-text">YOU'RE INVITED</div>
@@ -59,23 +60,30 @@
             <div class="envelope-flap"></div>
             <div class="seal" id="seal">
                 <div class="pulse-ring"></div>
-                <span>OPEN</span>
+                <span class="seal-text">R&N</span>
             </div>
         </div>
     </div>
 
     <div class="invitation-wrapper">
         <header class="hero">
-            <div class="hero-content">
+            <div class="hero-content hidden-reveal">
                 <span class="eyebrow">Please join us to celebrate</span>
-                <h1>Rea & Niko</h1>
-                <p class="date">Friday, May 20th, 2022</p>
+                <h1 class="hero-names">Rea & Niko</h1>
+                <p class="date">Saturday, October 14, 2026</p>
+                
+                <div class="countdown-container" id="countdown">
+                    <div class="countdown-item"><span class="countdown-value" id="cd-days">00</span><span class="countdown-label">Days</span></div>
+                    <div class="countdown-item"><span class="countdown-value" id="cd-hours">00</span><span class="countdown-label">Hours</span></div>
+                    <div class="countdown-item"><span class="countdown-value" id="cd-mins">00</span><span class="countdown-label">Mins</span></div>
+                    <div class="countdown-item"><span class="countdown-value" id="cd-secs">00</span><span class="countdown-label">Secs</span></div>
+                </div>
             </div>
         </header>
 
         <section class="gallery">
             <div class="container">
-                <h2 class="section-title">Our Memories</h2>
+                <h2 class="section-title hidden-reveal">Our Memories</h2>
                 <div class="gallery-grid">
                     <div class="gallery-item"><img src="Photos/473616015_1201413751541590_5575046063905710680_n.jpg"
                             alt="Our moment 1"></div>
@@ -97,12 +105,16 @@
 
         <section class="details">
             <div class="container">
-                <div class="details-grid">
+                <div class="details-grid hidden-reveal">
                     <div class="detail-item">
                         <h2>When</h2>
                         <p>Saturday, October 14, 2026</p>
                         <p>Ceremony begins at 4:00 PM</p>
                         <p>Reception to follow</p>
+                        <div class="calendar-buttons">
+                            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Rea+%26+Niko%27s+Wedding&dates=20261014T160000/20261014T220000&details=We+are+so+excited+to+celebrate+with+you!&location=The+Grand+Estate,+123+Beautiful+Lane,+City,+State" target="_blank" class="calendar-btn">Add to Google Calendar</a>
+                            <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261014T160000Z%0ADTEND:20261014T220000Z%0ASUMMARY:Rea%20%26%20Niko%27s%20Wedding%0ALOCATION:The%20Grand%20Estate%0AEND:VEVENT%0AEND:VCALENDAR" download="Rea_and_Niko_Wedding.ics" class="calendar-btn apple-cal">Apple Calendar</a>
+                        </div>
                     </div>
                     <div class="detail-item">
                         <h2>Where</h2>
@@ -116,7 +128,7 @@
 
         <section class="rsvp-section" id="rsvp">
             <div class="container">
-                <div class="rsvp-card">
+                <div class="rsvp-card hidden-reveal">
                     <h2>RSVP</h2>
                     <p class="rsvp-subtitle">Please respond by September 1st</p>
 

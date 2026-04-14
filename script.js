@@ -149,6 +149,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Scroll Reveal Intersection Observer
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target); // only reveal once
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.hidden-reveal').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Countdown Timer logic target Oct 14 2026 16:00:00
+    const weddingDate = new Date("October 14, 2026 16:00:00").getTime();
+    
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        if (distance < 0) {
+            document.getElementById("countdown").innerHTML = "The wedding has begun!";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const dEl = document.getElementById("cd-days");
+        if(dEl) dEl.innerText = days.toString().padStart(2, '0');
+        
+        const hEl = document.getElementById("cd-hours");
+        if(hEl) hEl.innerText = hours.toString().padStart(2, '0');
+
+        const mEl = document.getElementById("cd-mins");
+        if(mEl) mEl.innerText = minutes.toString().padStart(2, '0');
+
+        const sEl = document.getElementById("cd-secs");
+        if(sEl) sEl.innerText = seconds.toString().padStart(2, '0');
+    }
+
+    // initialize and tick
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
     function triggerMemoriesAnimation() {
         const galleryItems = document.querySelectorAll('.gallery-item');
         if (galleryItems.length === 0) return;
