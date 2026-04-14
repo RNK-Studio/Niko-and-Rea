@@ -291,8 +291,86 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
+    // Lenis Smooth Scroll Framework
+    // ----------------------------------------------------
+    if(typeof window.Lenis !== 'undefined') {
+        const lenis = new window.Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth acceleration
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            smoothTouch: false,
+            touchMultiplier: 2
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }
+
+    // ----------------------------------------------------
     // Premium Interactivity Upgrades
     // ----------------------------------------------------
+    
+    // 0. WeAreBrand IO Custom Magnetic Cursor Engine
+    const cursorDot = document.querySelector('.custom-cursor-dot');
+    const cursorRing = document.querySelector('.custom-cursor-ring');
+    let cX = window.innerWidth / 2, cY = window.innerHeight / 2;
+    let rX = cX, rY = cY;
+
+    if (cursorDot && cursorRing) {
+        window.addEventListener('mousemove', (e) => {
+            cX = e.clientX;
+            cY = e.clientY;
+            cursorDot.style.transform = `translate(${cX}px, ${cY}px)`;
+        });
+
+        function animateCustomCursorLerp() {
+            rX += (cX - rX) * 0.15; // 0.15 friction ratio for agency magnet effect
+            rY += (cY - rY) * 0.15;
+            cursorRing.style.transform = `translate(${rX}px, ${rY}px)`;
+            requestAnimationFrame(animateCustomCursorLerp);
+        }
+        animateCustomCursorLerp();
+
+        // Magnetic Hover States mapping
+        const magneticElements = document.querySelectorAll('button, a, .envelope, .gallery-item');
+        magneticElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hover-active'));
+            el.addEventListener('mouseleave', () => {
+                cursorRing.classList.remove('hover-active');
+                el.style.transform = ''; // reset position
+            });
+
+            el.addEventListener('mousemove', (e) => {
+                // Magnetic pull logic
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                // Pull element slightly (magnetic sensation)
+                const pullX = x * 0.2;
+                const pullY = y * 0.2;
+                
+                if (!el.classList.contains('gallery-item')) {
+                    el.style.transform = `translate(${pullX}px, ${pullY}px) scale(1.02)`;
+                }
+
+                // Make the ring stick to the element's center roughly
+                cX = rect.left + rect.width / 2 + x * 0.5;
+                cY = rect.top + rect.height / 2 + y * 0.5;
+            });
+        });
+
+        // Unique 'VIEW' popout mapping for polaroids
+        const galleryTriggers = document.querySelectorAll('.gallery-item');
+        galleryTriggers.forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hover-view'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover-view'));
+        });
+    }
 
     // 1. Ambient Glow Cursor tracking
     const cursorLight = document.createElement('div');

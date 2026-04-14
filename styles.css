@@ -28,6 +28,69 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* -------------------------------------- */
+/* Custom Agency Magnetic Cursor */
+/* -------------------------------------- */
+@media (pointer: fine) {
+    body, a, button, .gallery-item, .envelope, input, textarea, select {
+        cursor: none !important;
+    }
+}
+
+.custom-cursor-dot, .custom-cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 100000; /* Absolute highest */
+    border-radius: 50%;
+}
+
+.custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-color);
+    margin-top: -3px; margin-left: -3px;
+}
+
+.custom-cursor-ring {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(212, 175, 55, 0.7);
+    margin-top: -20px; margin-left: -20px;
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, border-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: transparent;
+}
+
+.custom-cursor-ring.hover-active {
+    width: 80px;
+    height: 80px;
+    margin-top: -40px; margin-left: -40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border-color: rgba(212, 175, 55, 1);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.custom-cursor-ring.hover-view {
+    width: 90px;
+    height: 90px;
+    margin-top: -45px; margin-left: -45px;
+    background: var(--accent-color);
+    color: #fff;
+    border-color: transparent;
+}
+.custom-cursor-ring.hover-view::after {
+    content: 'VIEW';
+}
+/* -------------------------------------- */
+
 /* Ultra Luxury Overlays */
 .trail-canvas {
     position: fixed;
