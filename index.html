@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Invitation & RSVP</title>
+    <meta name="description" content="Please join us for our special event. RSVP online.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="locked">
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto">
+        <source
+            src="Background music/Can't Help Falling In Love - Cello & Piano Cover (Brooklyn Duo) - Brooklyn Duo (youtube).mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle Music">
+        <!-- Muted Icon -->
+        <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <!-- Playing Icon -->
+        <svg class="icon-pause" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+    </button>
+
+    <!-- Aesthetic Ambient Background -->
+    <div class="ambient-bg">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+    </div>
+
+    <!-- Futuristic Envelope Overlay -->
+    <div class="envelope-overlay" id="envelope-overlay">
+        <canvas id="particle-canvas" class="particle-canvas"></canvas>
+        <div class="envelope" id="envelope">
+            <div class="envelope-paper">
+                <div class="envelope-text">YOU'RE INVITED</div>
+            </div>
+            <div class="envelope-left"></div>
+            <div class="envelope-right"></div>
+            <div class="envelope-front"></div>
+            <div class="envelope-flap"></div>
+            <div class="seal" id="seal">
+                <div class="pulse-ring"></div>
+                <span>OPEN</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="invitation-wrapper">
+        <header class="hero">
+            <div class="hero-content">
+                <span class="eyebrow">Please join us to celebrate</span>
+                <h1>Rea & Niko</h1>
+                <p class="date">Saturday, October 14th, 2026</p>
+            </div>
+        </header>
+
+        <section class="gallery">
+            <div class="container">
+                <h2 class="section-title">Our Memories</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="Photos/473616015_1201413751541590_5575046063905710680_n.jpg"
+                            alt="Our moment 1"></div>
+                    <div class="gallery-item"><img src="Photos/473668110_1201413758208256_9043521935691568619_n.jpg"
+                            alt="Our moment 2"></div>
+                    <div class="gallery-item"><img src="Photos/473679873_1201413528208279_2925099045656517593_n.jpg"
+                            alt="Our moment 3"></div>
+                    <div class="gallery-item"><img src="Photos/473696987_1201413554874943_7467662141524706431_n.jpg"
+                            alt="Our moment 4"></div>
+                    <div class="gallery-item"><img src="Photos/473767444_1201413831541582_8499753738591858036_n.jpg"
+                            alt="Our moment 5"></div>
+                    <div class="gallery-item"><img src="Photos/473769437_1201413648208267_8474444473663062828_n.jpg"
+                            alt="Our moment 6"></div>
+                    <div class="gallery-item"><img src="Photos/474010040_1201413931541572_8714848803457484692_n.jpg"
+                            alt="Our moment 7"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="details">
+            <div class="container">
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <h2>When</h2>
+                        <p>Saturday, October 14, 2026</p>
+                        <p>Ceremony begins at 4:00 PM</p>
+                        <p>Reception to follow</p>
+                    </div>
+                    <div class="detail-item">
+                        <h2>Where</h2>
+                        <p>The Grand Estate</p>
+                        <p>123 Beautiful Lane</p>
+                        <p>City, State 12345</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="rsvp-section" id="rsvp">
+            <div class="container">
+                <div class="rsvp-card">
+                    <h2>RSVP</h2>
+                    <p class="rsvp-subtitle">Please respond by September 1st</p>
+
+                    <form id="rsvp-form" class="rsvp-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="John & Jane Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="john@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="attending">Will you be attending?</label>
+                            <select id="attending" name="attending" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="Yes, Joyfully Accepts">Joyfully Accepts</option>
+                                <option value="No, Regretfully Declines">Regretfully Declines</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="guests-group">
+                            <label for="guests">Number of Guests (including yourself)</label>
+                            <input type="number" id="guests" name="guests" min="1" max="10" placeholder="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message for the couple (optional)</label>
+                            <textarea id="message" name="message" rows="3"
+                                placeholder="Dietary restrictions or simply say hello!"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span class="btn-text">Send RSVP</span>
+                            <span class="loader" style="display: none;"></span>
+                        </button>
+
+                        <div class="form-status" id="form-status" style="display: none;"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>We look forward to celebrating with you!</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,313 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Futuristic Envelope Animation Logic
+    const envelope = document.getElementById('envelope');
+    const envelopeOverlay = document.getElementById('envelope-overlay');
+    
+    // Background Particle Animation - Futuristic yet Wedding Elegant
+    const canvas = document.getElementById('particle-canvas');
+    let animationFrameId;
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3 - 0.3; // Gracefully drifting upwards
+                this.radius = Math.random() * 3 + 1.5;
+                this.baseAlpha = Math.random() * 0.35 + 0.15;
+                // Magical colors for light background: Gold, Soft Burgundy, Blush Pink
+                const colors = ['212, 175, 55', '114, 47, 55', '230, 168, 174'];
+                this.colorRGB = colors[Math.floor(Math.random() * colors.length)];
+                this.pulseSpeed = Math.random() * 0.02 + 0.01;
+                this.pulse = Math.random() * Math.PI * 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.pulse += this.pulseSpeed;
+
+                // Wrap around edges for infinite upward float
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                const currentAlpha = this.baseAlpha + Math.sin(this.pulse) * 0.2;
+                
+                // Draw glowing bokeh effect
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 2);
+                gradient.addColorStop(0, `rgba(${this.colorRGB}, ${currentAlpha})`);
+                gradient.addColorStop(1, `rgba(${this.colorRGB}, 0)`);
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            // Many soft glowing orbs instead of few connected dots
+            const numParticles = Math.min(Math.floor(window.innerWidth / 8), 150);
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            
+            animationFrameId = requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
+    if (envelope && envelopeOverlay) {
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open');
+            
+            setTimeout(() => {
+                envelopeOverlay.classList.add('hide');
+                document.body.classList.remove('locked');
+                
+                // Clean up animation on disappear
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+                
+                // Trigger hero animation optionally by removing and re-adding class
+                const heroContent = document.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.style.animation = 'none';
+                    heroContent.offsetHeight; /* trigger reflow */
+                    heroContent.style.animation = null; 
+                }
+
+                // Trigger the memories swirling animation
+                triggerMemoriesAnimation();
+            }, 2000); // 2 seconds after clicking, remove overlay
+
+            // Trigger background music
+            const bgMusic = document.getElementById('bg-music');
+            const musicToggle = document.getElementById('music-toggle');
+            if (bgMusic && musicToggle) {
+                bgMusic.volume = 0.6; // Gentle volume
+                bgMusic.play().then(() => {
+                    musicToggle.querySelector('.icon-pause').style.display = 'block';
+                    musicToggle.querySelector('.icon-play').style.display = 'none';
+                }).catch(e => console.log('Audio autoplay requires gesture: ', e));
+                
+                musicToggle.classList.add('visible');
+            }
+        });
+    }
+
+    // Music Control Logic
+    const musicToggleBtn = document.getElementById('music-toggle');
+    const bgMusicEl = document.getElementById('bg-music');
+    if (musicToggleBtn && bgMusicEl) {
+        musicToggleBtn.addEventListener('click', () => {
+            if (bgMusicEl.paused) {
+                bgMusicEl.play();
+                musicToggleBtn.querySelector('.icon-pause').style.display = 'block';
+                musicToggleBtn.querySelector('.icon-play').style.display = 'none';
+            } else {
+                bgMusicEl.pause();
+                musicToggleBtn.querySelector('.icon-pause').style.display = 'none';
+                musicToggleBtn.querySelector('.icon-play').style.display = 'block';
+            }
+        });
+    }
+
+    function triggerMemoriesAnimation() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        if (galleryItems.length === 0) return;
+
+        const clones = [];
+
+        galleryItems.forEach((item, index) => {
+            const img = item.querySelector('img');
+            
+            // Hide original image but preserve Layout space
+            img.style.opacity = '0';
+            
+            const clone = document.createElement('img');
+            clone.src = img.src;
+            clone.style.position = 'absolute';
+            
+            // Mobile responsive floating size so it doesn't overwhelm phones
+            const size = Math.min(200, window.innerWidth * 0.4); 
+            // Start near center of the hero viewport
+            const startX = window.innerWidth / 2 - size/2; 
+            const startY = window.scrollY + window.innerHeight / 2 - size/2; 
+            
+            clone.style.left = startX + 'px';
+            clone.style.top = startY + 'px';
+            clone.style.width = size + 'px';
+            clone.style.height = size + 'px';
+            clone.style.objectFit = 'cover';
+            clone.style.borderRadius = '8px';
+            clone.style.boxShadow = '0 15px 40px rgba(74, 20, 32, 0.4)';
+            clone.style.zIndex = '1000';
+            clone.style.opacity = '0';
+            clone.style.transform = 'translate(0, 0) scale(0)';
+            
+            document.body.appendChild(clone);
+            
+            // Force reflow
+            clone.offsetHeight;
+            
+            // Random float targets around the hero section
+            // Keep them somewhat bounded so they don't go off screen
+            const randomX = (Math.random() - 0.5) * window.innerWidth * 0.7;
+            const randomY = (Math.random() - 0.5) * window.innerHeight * 0.6;
+            const randomRot = (Math.random() - 0.5) * 40; // -20 to 20 deg
+            
+            // Emerge and float (with a slight stagger)
+            setTimeout(() => {
+                clone.style.transition = 'all 2s cubic-bezier(0.25, 1, 0.5, 1)';
+                clone.style.opacity = '1';
+                clone.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRot}deg) scale(1.1)`;
+            }, Math.random() * 500);
+
+            clones.push({ clone, item, img });
+        });
+
+        // Animate to their actual positions in the gallery
+        setTimeout(() => {
+            clones.forEach((obj, index) => {
+                const { clone, item } = obj;
+                
+                // Get actual position on page (absolute)
+                const rect = item.getBoundingClientRect();
+                const targetLeft = rect.left + window.scrollX;
+                const targetTop = rect.top + window.scrollY;
+                
+                // Overwrite transition for the journey home
+                clone.style.transition = `all 1.5s cubic-bezier(0.77, 0, 0.175, 1) ${index * 0.1}s`;
+                
+                // Reset transform and apply exact coordinates
+                clone.style.transform = 'translate(0, 0) rotate(0deg) scale(1)';
+                clone.style.left = targetLeft + 'px';
+                clone.style.top = targetTop + 'px';
+                clone.style.width = rect.width + 'px';
+                clone.style.height = rect.height + 'px';
+                clone.style.boxShadow = '0 10px 30px rgba(74, 20, 32, 0.08)';
+            });
+        }, 3200); // Let them float for 3.2s
+
+        // Remove clones and reveal originals
+        setTimeout(() => {
+            clones.forEach((obj) => {
+                obj.img.style.transition = 'opacity 0.4s ease';
+                obj.img.style.opacity = '1';
+                obj.clone.remove();
+                
+                // Clear inline transition after fade-in so CSS hover works again
+                setTimeout(() => {
+                    obj.img.style.transition = '';
+                }, 400);
+            });
+        }, 3200 + 1500 + 1000); // float time + anim time + stagger buffer
+    }
+
+    const form = document.getElementById('rsvp-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.querySelector('.btn-text');
+    const loader = document.querySelector('.loader');
+    const formStatus = document.getElementById('form-status');
+    const attendingSelect = document.getElementById('attending');
+    const guestsGroup = document.getElementById('guests-group');
+    const guestsInput = document.getElementById('guests');
+
+    // Toggle guests input based on attendance
+    attendingSelect.addEventListener('change', (e) => {
+        if (e.target.value.includes('No')) {
+            guestsGroup.style.display = 'none';
+            guestsInput.removeAttribute('required');
+            guestsInput.value = '0';
+        } else {
+            guestsGroup.style.display = 'block';
+            guestsInput.setAttribute('required', 'required');
+            if (guestsInput.value === '0' || !guestsInput.value) {
+                guestsInput.value = '1';
+            }
+        }
+    });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxIDal7N_8trk2V0HsdFndFqdVqfAxSkEiKbx54UmOxXX9rzfu2wvqq8wM-8eWRguRDzA/exec';
+        
+        if (scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
+            showStatus('Please configure your Google Apps Script URL in script.js first.', 'error');
+            return;
+        }
+
+        // Show loading state
+        submitBtn.disabled = true;
+        btnText.style.display = 'none';
+        loader.style.display = 'block';
+        formStatus.style.display = 'none';
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(scriptURL, { 
+                method: 'POST', 
+                body: formData 
+            });
+            
+            if (response.ok) {
+                showStatus('Thank you! Your RSVP has been confirmed.', 'success');
+                form.reset();
+                guestsGroup.style.display = 'block'; // Reset to default
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        } catch (error) {
+            console.error('Error!', error.message);
+            showStatus('Oops! Something went wrong. Please check your internet connection or try again later.', 'error');
+        } finally {
+            // Restore button state
+            submitBtn.disabled = false;
+            btnText.style.display = 'block';
+            loader.style.display = 'none';
+        }
+    });
+
+    function showStatus(message, type) {
+        formStatus.textContent = message;
+        formStatus.className = `form-status status-${type}`;
+        formStatus.style.display = 'block';
+    }
+});
