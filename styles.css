@@ -779,3 +779,103 @@ body.locked {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* Cathedral Doors Overlay */
+.church-doors-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 9998; /* Below envelope, above background */
+    perspective: 2500px;
+    background: transparent;
+    pointer-events: none;
+    display: flex;
+}
+
+.door {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50vw;
+    background: #1a080c; /* Deep black-burgundy wood */
+    background-image: linear-gradient(to bottom, #2b0c13, #110306);
+    border: 3px solid rgba(212, 175, 55, 0.15); /* Faint gold edges */
+    box-shadow: inset 0 0 60px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.8);
+    transform-style: preserve-3d;
+    transition: transform 3.5s cubic-bezier(0.25, 1, 0.15, 1);
+    will-change: transform;
+}
+
+.door-left {
+    left: 0;
+    border-right: 2px solid rgba(0,0,0,0.8);
+    transform-origin: left center;
+}
+
+.door-right {
+    right: 0;
+    border-left: 2px solid rgba(0,0,0,0.8);
+    transform-origin: right center;
+}
+
+.church-doors-overlay.open .door-left {
+    transform: rotateY(-105deg) scale(1.1); /* Slings outward realistically towards the user */
+}
+
+.church-doors-overlay.open .door-right {
+    transform: rotateY(105deg) scale(1.1);
+}
+
+/* Cathedral Arch Panels */
+.door-panel {
+    position: absolute;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    left: 15%; right: 15%;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.15);
+}
+
+.door-panel.top { 
+    top: 10%; bottom: 45%; 
+    border-top-left-radius: 40vw; 
+    border-top-right-radius: 40vw;
+}
+@media(min-width: 768px) {
+    .door-panel.top { border-top-left-radius: 200px; border-top-right-radius: 200px; }
+}
+
+.door-panel.bottom { 
+    top: 60%; bottom: 10%; 
+    border-radius: 4px;
+}
+
+.door-handle {
+    position: absolute;
+    top: 52%;
+    width: 12px;
+    height: 70px;
+    background: linear-gradient(to right, #e2cc76, #8a7324);
+    border-radius: 10px;
+    box-shadow: 8px 5px 20px rgba(0,0,0,0.9);
+    z-index: 10;
+}
+
+.door-handle.left { right: 12%; }
+.door-handle.right { left: 12%; }
+
+/* Blinding light spilling from inside the doors */
+.church-glow {
+    position: absolute;
+    top: 50%; left: 50%; width: 10px; height: 100vh;
+    transform: translate(-50%, -50%);
+    background: #fdfbf7;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 1.5s ease 0.5s, width 2s ease, filter 2s ease;
+    z-index: -1;
+}
+
+.church-doors-overlay.open .church-glow {
+    opacity: 1;
+    width: 100vw;
+    filter: blur(80px);
+}

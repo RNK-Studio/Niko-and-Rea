@@ -109,26 +109,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 1000);
             }
             
+            // 1. Let envelope finish its internal open animation (2s total)
             setTimeout(() => {
                 envelopeOverlay.classList.add('hide');
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId); // stop original bokeh
+                }
+            }, 2000);
+
+            // 2. As the envelope finishes fading, swing the massive 3D church doors open
+            setTimeout(() => {
+                const churchDoors = document.getElementById('church-doors-overlay');
+                if (churchDoors) churchDoors.classList.add('open');
+            }, 2800); 
+
+            // 3. Doors take 3.5s to swing open. At completion, hide doors, reveal page and trigger swirls
+            setTimeout(() => {
                 document.body.classList.remove('locked');
                 
-                // Clean up animation on disappear
-                if (animationFrameId) {
-                    cancelAnimationFrame(animationFrameId);
-                }
+                const churchDoors = document.getElementById('church-doors-overlay');
+                if (churchDoors) churchDoors.style.display = 'none';
                 
-                // Trigger hero animation optionally by removing and re-adding class
                 const heroContent = document.querySelector('.hero-content');
                 if (heroContent) {
                     heroContent.style.animation = 'none';
-                    heroContent.offsetHeight; /* trigger reflow */
+                    heroContent.offsetHeight; 
                     heroContent.style.animation = null; 
                 }
 
-                // Trigger the memories swirling animation
                 triggerMemoriesAnimation();
-            }, 2000); // 2 seconds after clicking, remove overlay
+            }, 6400);
         });
     }
 
