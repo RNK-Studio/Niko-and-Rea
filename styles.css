@@ -15,6 +15,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 body {
     font-family: var(--font-body);
     background-color: transparent; /* Allows ambient background to show */
@@ -149,7 +154,7 @@ body {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 20px;
     padding: 0 10px;
 }
@@ -409,14 +414,16 @@ footer {
 @media (max-width: 768px) {
     .hero h1 { font-size: 3rem; }
     .hero .date { font-size: 1.4rem; }
-    .rsvp-card { padding: 2rem; }
+    .rsvp-card { margin: 0 10px; padding: 2rem 1.5rem; }
     .rsvp-card h2 { font-size: 2.5rem; }
+    .container { padding: 0 15px; }
     
     .envelope {
-        transform: scale(0.55); /* Make 600px envelope fit on mobile */
+        transform: scale(0.48); /* Make 600px envelope fit on all mobiles safely */
+        transform-origin: center center;
     }
     .envelope:hover {
-        transform: translateY(-10px) scale(0.58);
+        transform: translateY(-5px) scale(0.5);
     }
 }
 
