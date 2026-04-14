@@ -153,30 +153,47 @@ body {
 .blob1 {
     top: -10%; left: -20%;
     width: 60vw; height: 60vw;
-    background: rgba(230, 168, 174, 0.6); /* Blush */
-    animation-delay: 0s;
+    background: radial-gradient(circle, rgba(230, 168, 174, 0.4) 0%, transparent 70%); /* Blush */
+    animation: floatBlob1 25s infinite ease-in-out alternate;
 }
 
 .blob2 {
     bottom: -15%; right: -15%;
     width: 70vw; height: 70vw;
-    background: rgba(212, 175, 55, 0.4); /* Gold */
-    animation-delay: -5s;
-    animation-direction: alternate-reverse;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%); /* Gold */
+    animation: floatBlob2 30s infinite ease-in-out alternate-reverse;
 }
 
 .blob3 {
     top: 30%; left: 40%;
     width: 50vw; height: 50vw;
-    background: rgba(74, 20, 32, 0.2); /* Soft Burgundy */
-    animation-delay: -10s;
+    background: radial-gradient(circle, rgba(74, 20, 32, 0.15) 0%, transparent 70%); /* Soft Burgundy */
+    animation: floatBlob3 22s infinite ease-in-out alternate;
 }
 
-@keyframes floatBlob {
-    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-    33% { transform: translate(5vw, 10vh) scale(1.1) rotate(45deg); }
-    66% { transform: translate(-5vw, 5vh) scale(0.9) rotate(90deg); }
-    100% { transform: translate(-10vw, -10vh) scale(1.05) rotate(135deg); }
+.blob4 {
+    position: absolute;
+    bottom: 20%; left: -10%;
+    width: 45vw; height: 45vw;
+    background: radial-gradient(circle, rgba(253, 251, 247, 0.4) 0%, transparent 70%); /* Cream Bloom */
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: floatBlob1 28s infinite ease-in-out alternate-reverse;
+}
+
+@keyframes floatBlob1 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    100% { transform: translate(10% , 5%) rotate(90deg) scale(1.1); }
+}
+
+@keyframes floatBlob2 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1.1); }
+    100% { transform: translate(-8% , 12%) rotate(-120deg) scale(0.9); }
+}
+
+@keyframes floatBlob3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(15% , -10%) scale(1.2); }
 }
 
 .container {

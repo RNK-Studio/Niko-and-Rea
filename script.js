@@ -395,6 +395,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const moveY = (window.innerHeight / 2 - e.clientY) * 0.015;
                 heroContent.style.transform = `translate(${moveX}px, ${moveY}px)`;
             }
+
+            // Background Blobs Parallax
+            const blobs = document.querySelectorAll('.blob');
+            blobs.forEach((blob, i) => {
+                const shiftX = (window.innerWidth / 2 - e.clientX) * (0.01 + i * 0.005);
+                const shiftY = (window.innerHeight / 2 - e.clientY) * (0.01 + i * 0.005);
+                // Keep the original animation but add the mouse offset
+                blob.style.marginLeft = `${shiftX}px`;
+                blob.style.marginTop = `${shiftY}px`;
+            });
         }
     });
 
