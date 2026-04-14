@@ -202,6 +202,84 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
+    // Gold Dust Cursor Trail Logic
+    const trailCanvas = document.getElementById('trail-canvas');
+    if (trailCanvas) {
+        const ctx = trailCanvas.getContext('2d');
+        const particles = [];
+        
+        function resizeTrailCanvas() {
+            trailCanvas.width = window.innerWidth;
+            trailCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeTrailCanvas);
+        resizeTrailCanvas();
+
+        function addParticle(x, y) {
+            particles.push({
+                x: x,
+                y: y,
+                size: Math.random() * 3 + 1,
+                dx: (Math.random() - 0.5) * 2,
+                dy: (Math.random() - 0.5) * 2 + 1.5, /* drift slightly downwards naturally */
+                life: 1, // Full opacity
+                decay: Math.random() * 0.02 + 0.015,
+                color: `rgba(212, 175, 55, ` // Base gold rgba string
+            });
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            if(!document.body.classList.contains('locked')){
+                if(Math.random() > 0.4) addParticle(e.clientX, e.clientY);
+            }
+        });
+        window.addEventListener('touchmove', (e) => {
+            if(!document.body.classList.contains('locked')){
+                const touch = e.touches[0];
+                if(Math.random() > 0.4) addParticle(touch.clientX, touch.clientY);
+            }
+        });
+
+        function animateTrail() {
+            ctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.dx;
+                p.y += p.dy;
+                p.life -= p.decay;
+
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                    continue;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color + p.life + ')';
+                ctx.fill();
+            }
+            requestAnimationFrame(animateTrail);
+        }
+        animateTrail();
+    }
+
+    // Micro-Parallax Scrolling Logic for Gallery Items
+    window.addEventListener('scroll', () => {
+        if(document.body.classList.contains('locked')) return;
+        
+        const wraps = document.querySelectorAll('.parallax-wrap');
+        wraps.forEach(wrap => {
+            const speed = parseFloat(wrap.dataset.speed);
+            const rect = wrap.getBoundingClientRect();
+            // check if in view bounds
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const centerOffset = window.innerHeight / 2 - (rect.top + rect.height/2);
+                wrap.style.transform = `translateY(${centerOffset * speed * -1}px)`;
+            }
+        });
+    });
+
     function triggerMemoriesAnimation() {
         const galleryItems = document.querySelectorAll('.gallery-item');
         if (galleryItems.length === 0) return;
