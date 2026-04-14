@@ -93,6 +93,22 @@ document.addEventListener('DOMContentLoaded', () => {
         envelope.addEventListener('click', () => {
             envelope.classList.add('open');
             
+            // Trigger background music IMMEDIATELY on click to bypass browser safety block
+            const bgMusic = document.getElementById('bg-music');
+            const musicToggle = document.getElementById('music-toggle');
+            if (bgMusic && musicToggle) {
+                bgMusic.volume = 0.6; // Gentle volume
+                bgMusic.play().then(() => {
+                    musicToggle.querySelector('.icon-pause').style.display = 'block';
+                    musicToggle.querySelector('.icon-play').style.display = 'none';
+                }).catch(e => console.log('Audio autoplay requires gesture: ', e));
+                
+                // Bring the music button into view smoothly
+                setTimeout(() => {
+                    musicToggle.classList.add('visible');
+                }, 1000);
+            }
+            
             setTimeout(() => {
                 envelopeOverlay.classList.add('hide');
                 document.body.classList.remove('locked');
@@ -113,19 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Trigger the memories swirling animation
                 triggerMemoriesAnimation();
             }, 2000); // 2 seconds after clicking, remove overlay
-
-            // Trigger background music
-            const bgMusic = document.getElementById('bg-music');
-            const musicToggle = document.getElementById('music-toggle');
-            if (bgMusic && musicToggle) {
-                bgMusic.volume = 0.6; // Gentle volume
-                bgMusic.play().then(() => {
-                    musicToggle.querySelector('.icon-pause').style.display = 'block';
-                    musicToggle.querySelector('.icon-play').style.display = 'none';
-                }).catch(e => console.log('Audio autoplay requires gesture: ', e));
-                
-                musicToggle.classList.add('visible');
-            }
         });
     }
 
