@@ -290,6 +290,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ----------------------------------------------------
+    // Premium Interactivity Upgrades
+    // ----------------------------------------------------
+
+    // 1. Ambient Glow Cursor tracking
+    const cursorLight = document.createElement('div');
+    cursorLight.className = 'cursor-light';
+    const ambientBg = document.querySelector('.ambient-bg');
+    if(ambientBg) ambientBg.appendChild(cursorLight);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let lightX = mouseX;
+    let lightY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // 2. Subtle Hero Text Floating Parallax
+        if(!document.body.classList.contains('locked')) {
+            const heroContent = document.querySelector('.hero-content');
+            if(heroContent) {
+                const moveX = (window.innerWidth / 2 - e.clientX) * 0.015;
+                const moveY = (window.innerHeight / 2 - e.clientY) * 0.015;
+                heroContent.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        }
+    });
+
+    function animateInteractiveLight() {
+        lightX += (mouseX - lightX) * 0.08;
+        lightY += (mouseY - lightY) * 0.08;
+        cursorLight.style.transform = `translate(${lightX - 400}px, ${lightY - 400}px)`; /* 800px width/height offset */
+        requestAnimationFrame(animateInteractiveLight);
+    }
+    animateInteractiveLight();
+
+    // 3. 3D Tilt interaction on RSVP Card
+    const rsvpCard = document.querySelector('.rsvp-card');
+    if (rsvpCard) {
+        rsvpCard.addEventListener('mousemove', (e) => {
+            const rect = rsvpCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate rotation max 4 degrees
+            const rotateX = ((y - centerY) / centerY) * -4;
+            const rotateY = ((x - centerX) / centerX) * 4;
+            
+            rsvpCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        rsvpCard.addEventListener('mouseleave', () => {
+            rsvpCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+    }
+
+    // ----------------------------------------------------
+
     function triggerMemoriesAnimation() {
         const galleryItems = document.querySelectorAll('.gallery-item');
         if (galleryItems.length === 0) return;

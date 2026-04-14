@@ -68,6 +68,17 @@ body {
     animation: heroBreathe 25s ease-in-out infinite alternate;
 }
 
+.cursor-light {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 10;
+    will-change: transform;
+}
+
 .blob {
     position: absolute;
     filter: blur(90px);
@@ -130,12 +141,15 @@ body {
     padding: 3.5rem;
     background: rgba(253, 251, 247, 0.85);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(212, 175, 55, 0.4);
     border-radius: 8px;
     box-shadow: 0 20px 40px rgba(74, 20, 32, 0.1);
     max-width: 600px;
     width: 90%;
     animation: fadeIn 1.5s ease-out;
+    transition: transform 0.2s ease-out; /* For parallax logic */
+    will-change: transform;
 }
 
 .eyebrow {
@@ -367,6 +381,8 @@ body {
     padding: 4rem;
     border-radius: 12px;
     box-shadow: 0 15px 50px rgba(74, 20, 32, 0.08);
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* For 3D Tilt interaction */
+    will-change: transform;
 }
 
 .rsvp-card h2 {
