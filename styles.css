@@ -145,7 +145,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Higher than ambient shadow, lower than content */
+    z-index: -20; /* Lowest layer */
     overflow: hidden;
     pointer-events: none;
 }
@@ -169,7 +169,7 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4); /* Subtle darkening */
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Ambient BG should be below the video or transparent */
@@ -181,6 +181,17 @@ body {
     overflow: hidden;
     pointer-events: none;
     background: none !important; /* Force removal of original background */
+}
+
+.hero {
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: transparent !important;
+    position: relative; /* Restored positioning */
 }
 
 @keyframes heroBreathe {
