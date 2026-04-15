@@ -63,9 +63,7 @@ body {
     z-index: -2;
     overflow: hidden;
     pointer-events: none;
-    background: linear-gradient(rgba(253, 251, 247, 0.6), rgba(253, 251, 247, 0.95)), url('Photos/473668110_1201413758208256_9043521935691568619_n.jpg') center/cover;
-    background-position: center;
-    animation: heroBreathe 25s ease-in-out infinite alternate;
+    background: transparent;
 }
 
 .cursor-light {
@@ -139,6 +137,29 @@ body {
     padding: 0 20px;
 }
 
+.global-bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: -10;
+}
+
+.global-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fixed overlay for the whole page */
+    z-index: -9;
+}
+
 .hero {
     height: 100vh;
     min-height: 600px;
@@ -146,7 +167,6 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    position: relative;
 }
 
 @keyframes heroBreathe {
@@ -155,18 +175,17 @@ body {
 }
 
 .hero-content {
+    position: relative;
     padding: 3.5rem;
-    background: rgba(253, 251, 247, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: rgba(253, 251, 247, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 8px;
-    box-shadow: 0 20px 40px rgba(74, 20, 32, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     max-width: 600px;
     width: 90%;
     animation: fadeIn 1.5s ease-out;
-    transition: transform 0.2s ease-out; /* For parallax logic */
-    will-change: transform;
 }
 
 .eyebrow {
@@ -243,15 +262,16 @@ body {
 .gallery {
     padding: 6rem 0 2rem 0;
     text-align: center;
-    background-color: transparent;
+    background: transparent !important;
 }
 
 .section-title {
     font-family: var(--font-heading);
-    color: var(--primary-color);
-    font-size: 3rem;
+    color: #ffffff; /* White title for visibility */
+    font-size: 3.5rem;
     margin-bottom: 3rem;
     font-weight: 300;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .gallery-grid {
@@ -294,7 +314,7 @@ body {
 .details {
     padding: 6rem 0;
     text-align: center;
-    background-color: transparent;
+    background: transparent !important;
 }
 
 .details-grid {
@@ -313,9 +333,10 @@ body {
 }
 
 .detail-item p {
-    font-size: 1.1rem;
-    color: var(--light-text);
+    font-size: 1.2rem;
+    color: #ffffff; /* pure white for maximum visibility */
     margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* depth for legibility */
 }
 
 /* Calendar Buttons */
@@ -335,10 +356,11 @@ body {
     letter-spacing: 2px;
     padding: 0.8rem 1.5rem;
     border: 1px solid var(--accent-color);
-    color: var(--primary-color);
+    color: #ffffff; /* White text for buttons */
     border-radius: 4px;
     transition: all 0.3s ease;
-    background: transparent;
+    background: rgba(212, 175, 55, 0.2); /* Semi-transparent gold background */
+    backdrop-filter: blur(5px);
     width: 220px;
 }
 
@@ -388,18 +410,17 @@ body {
 /* RSVP Section */
 .rsvp-section {
     padding: 6rem 0;
-    background-color: transparent;
+    background: transparent !important;
 }
 
 .rsvp-card {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--surface-color);
+    background: rgba(255, 255, 255, 0.85); /* Slightly transparent for consistency */
+    backdrop-filter: blur(10px);
     padding: 4rem;
     border-radius: 12px;
-    box-shadow: 0 15px 50px rgba(74, 20, 32, 0.08);
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* For 3D Tilt interaction */
-    will-change: transform;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
 }
 
 .rsvp-card h2 {
