@@ -145,7 +145,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -20;
+    z-index: -1; /* Higher than ambient shadow, lower than content */
     overflow: hidden;
     pointer-events: none;
 }
@@ -154,8 +154,10 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
 }
@@ -166,18 +168,19 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent cover */
-    z-index: 1;
+    background: rgba(0, 0, 0, 0.4); /* Subtle darkening */
+    z-index: 2;
 }
 
-.hero {
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: transparent !important;
+/* Ambient BG should be below the video or transparent */
+.ambient-bg {
+    position: fixed;
+    top: -5%; left: -5%;
+    width: 110vw; height: 110vh;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+    background: none !important; /* Force removal of original background */
 }
 
 @keyframes heroBreathe {
