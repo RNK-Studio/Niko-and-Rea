@@ -1380,7 +1380,7 @@ body.locked {
 .map-toggle-btn {
     background: transparent;
     border: 1px solid var(--accent-color);
-    color: var(--primary-color);
+    color: #fff; /* White text */
     padding: 0.5rem 1.5rem;
     border-radius: 20px;
     cursor: pointer;
@@ -1393,7 +1393,7 @@ body.locked {
 
 .map-toggle-btn:hover {
     background: var(--accent-color);
-    color: #fff;
+    color: #fff; /* Stay white on hover */
 }
 
 .map-container {
