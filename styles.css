@@ -1375,43 +1375,104 @@ body.locked {
     }
 }
 
-/* Location & Map Styles */
+/* Location Card Styles */
 .locations-item {
     text-align: left !important;
 }
 
-.location-block {
+.location-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
     margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
-.location-block h3 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.2rem;
+.location-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.location-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.location-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--accent-color);
-    margin-bottom: 0.5rem;
+    flex-shrink: 0;
 }
 
-.loc-name {
+.location-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.location-title h3 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin: 0;
+    line-height: 1;
+}
+
+.location-title .loc-name {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
     font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 0.2rem;
-}
-
-.loc-name, .loc-addr {
-    text-shadow: none !important; /* Ensure readability */
+    color: #fff;
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .loc-addr {
-    font-size: 0.9rem;
-    opacity: 0.8;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.location-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.directions-link {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.directions-link:hover {
+    border-color: var(--accent-color);
+    letter-spacing: 1.5px;
 }
 
 .map-toggle-btn {
     background: transparent;
     border: 1px solid var(--accent-color);
-    color: #fff; /* White text */
+    color: #fff;
     padding: 0.5rem 1.5rem;
     border-radius: 20px;
     cursor: pointer;
@@ -1424,7 +1485,7 @@ body.locked {
 
 .map-toggle-btn:hover {
     background: var(--accent-color);
-    color: #fff; /* Stay white on hover */
+    color: #fff;
 }
 
 .map-container {
@@ -1441,16 +1502,13 @@ body.locked {
     transition: max-height 0.5s ease-in;
 }
 
-.location-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent-color), transparent);
-    margin: 2rem 0;
-    opacity: 0.3;
-}
-
 @media (max-width: 768px) {
     .locations-item { text-align: center !important; }
+    .location-header { flex-direction: column; text-align: center; }
+    .location-actions { justify-content: center; }
 }
+
+/* Timeline, Toggle and other styles below... */
 
 /* Wedding Timeline Styles */
 .timeline-item {
