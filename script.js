@@ -603,4 +603,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
+
+    // Map Toggle Logic
+    const mapToggleBtns = document.querySelectorAll('.map-toggle-btn');
+    mapToggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const targetMap = document.getElementById(targetId);
+            if (targetMap) {
+                targetMap.classList.toggle('active');
+                btn.textContent = targetMap.classList.contains('active') ? 'Hide Map' : 'View Map';
+            }
+        });
+    });
 });
