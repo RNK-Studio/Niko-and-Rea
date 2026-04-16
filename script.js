@@ -293,8 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // Lenis Smooth Scroll Framework
     // ----------------------------------------------------
+    let lenis;
     if(typeof window.Lenis !== 'undefined') {
-        const lenis = new window.Lenis({
+        lenis = new window.Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth acceleration
             orientation: 'vertical',
@@ -559,11 +560,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!modal) return;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Stop background scrolling
+        if (lenis) lenis.stop();
     }
 
     function closeModal() {
         modalOverlays.forEach(modal => modal.classList.remove('active'));
         document.body.style.overflow = ''; // Restore scrolling
+        if (lenis) lenis.start();
     }
 
     if (openSponsorsBtn) {
