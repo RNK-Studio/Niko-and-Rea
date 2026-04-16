@@ -138,6 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 triggerMemoriesAnimation();
+
+                // 4. Reveal floating menu and watermark once on main page
+                const quickOptions = document.querySelector('.quick-options');
+                const watermark = document.querySelector('.rnk-watermark');
+                if (quickOptions) quickOptions.classList.add('visible');
+                if (watermark) watermark.classList.add('visible');
             }, 6400);
         });
     }
@@ -550,8 +556,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal System Logic
     const openSponsorsBtn = document.getElementById('open-sponsors');
+    const openEntourageBtn = document.getElementById('open-entourage');
     const openDressBtn = document.getElementById('open-dress');
     const modalSponsors = document.getElementById('modal-sponsors');
+    const modalEntourage = document.getElementById('modal-entourage');
     const modalDress = document.getElementById('modal-dress');
     const closeBtns = document.querySelectorAll('.modal-close');
     const modalOverlays = document.querySelectorAll('.modal-overlay');
@@ -571,6 +579,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (openSponsorsBtn) {
         openSponsorsBtn.addEventListener('click', () => openModal(modalSponsors));
+    }
+
+    if (openEntourageBtn) {
+        openEntourageBtn.addEventListener('click', () => openModal(modalEntourage));
     }
 
     if (openDressBtn) {

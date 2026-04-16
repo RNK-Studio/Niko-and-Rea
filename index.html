@@ -235,8 +235,12 @@
     <!-- Quick Options Side Menu -->
     <div class="quick-options">
         <button class="option-btn" id="open-sponsors">
-            <span class="option-tooltip">Sponsors</span>
+            <span class="option-tooltip">Principal Sponsors</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </button>
+        <button class="option-btn" id="open-entourage">
+            <span class="option-tooltip">Secondary Sponsors</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
         </button>
         <button class="option-btn" id="open-dress">
             <span class="option-tooltip">Dress Code</span>
@@ -303,7 +307,17 @@
                     </div>
                 </div>
 
-                <div class="secondary-sponsors-section">
+                <!-- Principal Sponsors remain in this modal -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Secondary Sponsors Modal -->
+    <div id="modal-entourage" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="info-card">
+                <div class="secondary-sponsors-section" style="margin-top: 0; border-top: none; padding-top: 0;">
                     <h2 class="section-title small-title">Secondary Sponsors</h2>
                     
                     <div class="sponsors-wrapper mini-grid">
