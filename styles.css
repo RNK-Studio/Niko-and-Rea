@@ -1272,11 +1272,19 @@ body.locked {
         top: 20px;
         right: 20px;
     }
-}    .info-card { padding: 2.5rem 1.5rem; }
+    .info-card { padding: 2.5rem 1.5rem; }
     .sponsors-wrapper { grid-template-columns: 1fr; gap: 1rem; }
     .entourage-summary { flex-direction: column; gap: 2rem; }
     .person-block h3 { font-size: 2rem; }
-    .quick-options { display: none; }
+    
+    /* Reposition menu for mobile thumbs */
+    .quick-options { 
+        right: 20px; 
+        top: auto;
+        bottom: 80px; 
+        transform: none;
+    }
+    
     .color-palette { gap: 0.8rem; }
     .color-circle { width: 45px; height: 45px; }
 }
