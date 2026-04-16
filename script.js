@@ -546,4 +546,46 @@ document.addEventListener('DOMContentLoaded', () => {
         formStatus.className = `form-status status-${type}`;
         formStatus.style.display = 'block';
     }
+
+    // Modal System Logic
+    const openSponsorsBtn = document.getElementById('open-sponsors');
+    const openDressBtn = document.getElementById('open-dress');
+    const modalSponsors = document.getElementById('modal-sponsors');
+    const modalDress = document.getElementById('modal-dress');
+    const closeBtns = document.querySelectorAll('.modal-close');
+    const modalOverlays = document.querySelectorAll('.modal-overlay');
+
+    function openModal(modal) {
+        if (!modal) return;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Stop background scrolling
+    }
+
+    function closeModal() {
+        modalOverlays.forEach(modal => modal.classList.remove('active'));
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    if (openSponsorsBtn) {
+        openSponsorsBtn.addEventListener('click', () => openModal(modalSponsors));
+    }
+
+    if (openDressBtn) {
+        openDressBtn.addEventListener('click', () => openModal(modalDress));
+    }
+
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', closeModal);
+    });
+
+    modalOverlays.forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
 });
