@@ -1209,11 +1209,13 @@ body.locked {
     -webkit-backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Start from top for long lists */
+    padding: 2rem 0; /* Vertical breathing room */
     z-index: 20000;
     opacity: 0;
     visibility: hidden;
     transition: all 0.4s ease;
+    overflow-y: auto; /* Allow overlay to scroll if content too big */
 }
 
 .modal-overlay.active {
@@ -1225,16 +1227,10 @@ body.locked {
     background: transparent;
     width: 90%;
     max-width: 800px;
-    max-height: 90vh;
     position: relative;
     transform: scale(0.9) translateY(20px);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow-y: auto;
-    scrollbar-width: none; /* Hide scrollbar for clean look */
-}
-
-.modal-content::-webkit-scrollbar {
-    display: none;
+    margin: auto; /* Center horizontally */
 }
 
 .modal-overlay.active .modal-content {
@@ -1242,36 +1238,41 @@ body.locked {
 }
 
 .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: fixed; /* Keep it visible even when scrolling info */
+    top: 30px;
+    right: 40px;
     background: var(--primary-color);
     color: white;
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    font-size: 2rem;
+    font-size: 2.5rem;
     line-height: 1;
     cursor: pointer;
-    z-index: 10;
+    z-index: 20001;
     transition: all 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 4px;
+    padding-bottom: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .modal-close:hover {
     background: var(--accent-color);
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.1);
 }
 
 @media (max-width: 768px) {
     .modal-content {
         width: 95%;
     }
-    .info-card { padding: 2.5rem 1.5rem; }
+    .modal-close {
+        top: 20px;
+        right: 20px;
+    }
+}    .info-card { padding: 2.5rem 1.5rem; }
     .sponsors-wrapper { grid-template-columns: 1fr; gap: 1rem; }
     .entourage-summary { flex-direction: column; gap: 2rem; }
     .person-block h3 { font-size: 2rem; }
