@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     musicToggle.classList.add('visible');
                 }, 1000);
             }
+
             
             // 1. Let envelope finish its internal open animation (2s total)
             setTimeout(() => {

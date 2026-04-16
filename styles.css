@@ -848,6 +848,17 @@ body.locked {
     border: 2px solid rgba(160, 48, 69, 0.4);
     animation: rotateSlow 10s linear infinite;
     border-top-color: #a03045;
+}
+
+@keyframes rotateFast {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
     border-bottom-color: #a03045;
 }
 
